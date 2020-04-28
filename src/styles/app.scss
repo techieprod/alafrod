@@ -1,0 +1,100 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/bootstrap";
+@import "spinner";
+@import "utils";
+@import "rtl";
+@import "responsive";
+@import '~@sweetalert2/theme-bootstrap-4/bootstrap-4.scss';
+
+@media print {
+    .breadcrumb {
+        display: none !important;
+    }
+}
+
+
+.dataTables_wrapper .dataTables_filter {
+    float: left !important;
+    text-align: right !important;
+    padding-left: 76px;
+}
+
+.col-custom-padding {
+padding-right: 0px !important;
+    padding-left: 9px !important;
+
+}
+
+/// Pos Table Style
+
+ .posTable td {
+    padding: 0.6rem !important;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    font-size: 11px !important;
+}
+
+.pos-card-body {
+    flex: 1 1 auto;
+    padding: 0rem !important;
+}
+
+.loadingImg {
+    background: url("../assets/images/loading.gif");
+    background-color: transparent;
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-size: 40px;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+  }
+
+  .table-td-amount{
+    text-align: right;
+}
+
+
+.table-custom-header{
+    text-align: center !important;
+    background-color:#008080  !important;
+   // background: -webkit-linear-gradient(left,#008080, red 30%, #008080 30%, green);
+    color: #ffffff;
+}
+
+.card-custom-block{
+    background-color: #00008b !important;
+color:#fffaf0  !important;
+}
+
+
+.calender-custom-icon{
+    background-color: #ed143d !important;
+    color: #ffffff !important;
+}
+
+//Model design
+
+.modal-header-custom {
+    border-bottom: 1px solid #ed143d !important;
+    padding: .7rem .7rem .7rem .7rem !important;
+    background-color: #008b8b !important;
+    color: #ffffff !important;
+}
+
+.modal-content-custom{
+    // background-color: #fafad2 !important;
+    border: 1px solid #bb1c1c !important;
+}
+
+.modal-footer-custom{
+    border-top: 1px solid #ed143d !important;
+
+}
+
+
+.swal-wide{
+    width:850px !important;
+}

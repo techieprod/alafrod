@@ -1,0 +1,66 @@
+  <!-- Main content -->
+  <section class="content">
+    <div class="loader" *ngIf="loading">
+      <span class="loadingImg"></span>
+  </div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 ">
+<div class="card card-info">
+  <div class="card-header" style="background:#663399; color:white">
+    <h3 class="card-title">Bill Cancellation </h3>
+  </div>
+  <!-- /.card-header -->
+  <!-- form start -->
+  <form class="form-horizontal">
+
+    <div class="card-body">
+     <div class="form-group row" *ngIf="errorMessage">
+     <div class="col-sm-4"></div>
+      <div class="col-sm-8">
+     <span  style="color:red;">{{errorMessage}} </span>
+     </div>
+     </div>
+
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-4 control-label">Area Name<span style="color:red;">*</span></label>
+        <div class="col-sm-8">
+          <select class="form-control custom-select" [(ngModel)]="posModel" (change)="changePos()" name="posModel" >
+            <option  value="-1">--Select Area--</option>
+
+            <option value="{{posData.posCode}}"  *ngFor="let posData of posList let itemIndex = index;">{{posData.posName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-4 control-label">Bill Number<span style="color:red;">*</span></label>
+        <div class="col-sm-8">
+          <input id="typeahead-prevent-manual-entry"  [(ngModel)]="billNumberModel" type="text" class="form-control" maxlength="10" name="billNumberModel"
+      inputmode="numeric"
+      pattern="[0-9]*"
+      digitOnly
+      [(ngModel)]="itemCodeModel"
+      [ngbTypeahead]="itemCodeSearch"
+      [inputFormatter]="itemCodeformatterDisplay"
+      [resultFormatter]="formatter"
+      (selectItem)="itemCodeSelected($event)"
+      [editable]='false' />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-4 control-label">Reason<span style="color:red;">*</span></label>
+        <div class="col-sm-8">
+          <textarea id="inputDescription"  [(ngModel)]="billReasonModel"  name="billReasonModel"  class="form-control" rows="2"></textarea>
+        </div>
+      </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+      <button type="button" (click)="updateBillCancel()" class="btn-lg btn-success float-right">Bill Cancel</button>
+      <button type="button" (click)="customModelService.closeBillCancelModel()" class="btn-lg btn-danger ">Close</button>
+    </div>
+    <!-- /.card-footer -->
+  </form>
+</div>
+</div>
+</div>
+</section>

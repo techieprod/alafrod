@@ -1,0 +1,11 @@
+ul.typeahead.dropdown-menu {
+    max-height: 400px;
+    overflow: auto;
+}
+
+
+.dropdown-menu.show {
+    display: block;
+    overflow: auto !important;
+    max-height: 100px;
+}

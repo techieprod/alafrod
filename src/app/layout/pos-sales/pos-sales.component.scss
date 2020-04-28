@@ -1,0 +1,56 @@
+.bg-gradient-success.btn:hover {
+    background: #218838 linear-gradient(180deg,#429a56,#218838) repeat-x!important;
+}
+
+
+ul.typeahead.dropdown-menu {
+    max-height: 100px;
+    overflow: auto;
+}
+
+
+.dropdown-menu.show {
+    display: block;
+    overflow: auto !important;
+    max-height: 100px !important;
+}
+
+.btn-app {
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    font-style: normal red;
+    height: 60px;
+    margin: 0 0 10px 10px;
+    min-width: 80px;
+    padding: 15px 5px;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+a.btn.btn-app{
+    color:#218838;
+    font-size: 1rem;
+}
+
+.btn-app>.fa, .btn-app>.glyphicon, .btn-app>.total {
+    display: block;
+    font-size: 20px;
+    color:#218838;
+}
+
+.btn-app>.total {
+    display: block;
+    font-size: 16px;
+    color: white;
+    font-weight: 800;
+}
+
+.popup-on{
+    display: block !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    opacity: 90 !important;
+    top: 161px !important;
+}

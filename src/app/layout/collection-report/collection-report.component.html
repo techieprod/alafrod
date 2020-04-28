@@ -1,0 +1,104 @@
+<!-- Main content -->
+<section class="content">
+    <!-- <div class="loader" *ngIf="loading">
+      <span class="loadingImg"></span>
+  </div> -->
+
+  <div class="row">
+    <div class="col-lg-3">
+
+        <form role="form">
+            <fieldset class="form-group">
+                <label>From Date</label>
+                <div class="form-group date-box">
+                    <div class="input-group datepicker-input"> 
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp"  [(ngModel)]="fromDateCollectionReport" (dateSelect)="reportDateChange()" ngbDatepicker #e="ngbDatepicker">
+            <button class="input-group-addon calender-custom-icon" (click)="e.toggle();" type="button">
+                <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
+                <span class="fa fa-calendar"></span>
+                </button>
+                </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="col-lg-3">
+
+        <form role="form">
+            <fieldset class="form-group">
+                <label>To Date</label>
+                <div class="form-group date-box">
+                    <div class="input-group datepicker-input">
+                <input class="form-control" placeholder="dd-MMM-yyyy"   [maxDate]="maxDate" (dateSelect)="reportDateChange()"
+                name="dp" [(ngModel)]="toDateCollectionReport" ngbDatepicker #colltodate="ngbDatepicker">
+            <button class="input-group-addon calender-custom-icon" (click)="colltodate.toggle()" type="button">
+                <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
+                <span class="fa fa-calendar"></span>
+                </button>
+                </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <!-- <div class="col-lg-2">
+        <form role="form">
+            <fieldset class="form-group">
+            <label></label>
+        <button type="submit" class="btn btn-success">Get</button>
+        </fieldset>
+        </form>
+        </div> -->
+       
+</div>
+
+
+<div class="card mb-2">
+  <div class="card-header card-custom-block">Sales Summary Report</div>
+  <div class="card-body table-responsive">
+      <table class="table table-bordered">
+          <thead>
+          <tr class="table-custom-header">
+              <th></th>
+              <th>Rate</th>
+              <th>Disount</th>
+              <th>Tax</th>
+              <th>Net Total</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr  *ngFor="let collection of collectionData let itemIndex = index;">
+             
+              <td class="table-grp-heading" *ngIf="collection.posName ==''">{{collection.settleName}}</td>
+              <td class="table-td-amount" *ngIf="collection.posName !==''">{{collection.settleName}}</td>
+              <td   class="table-td-amount" *ngIf="collection.posName !==''"> {{collection.eligibleAmount | currency:'INR'}} </td>
+              <td  class="table-td-amount" *ngIf="collection.posName !==''">{{collection.disCountAmount | currency:'INR'}} </td>
+              <td  class="table-td-amount" *ngIf="collection.posName !==''">{{collection.taxAmount | currency:'INR'}}</td>
+              <td  class="table-td-amount" *ngIf="collection.posName !==''"> {{netTotalCalculation(collection.eligibleAmount,collection.taxAmount,collection.disCountAmount) | currency:'INR'}} </td>
+
+
+          </tr>
+          <!-- <tr>
+              <th scope="row">2</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@TwBootstrap</td>
+          </tr>
+          <tr>
+              <th scope="row">3</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+          </tr>
+          <tr>
+              <th scope="row">4</th>
+              <td colspan="2">Larry the Bird</td>
+              <td>@twitter</td>
+          </tr> -->
+          </tbody>
+      </table>
+  </div>
+</div>
+
+</section>

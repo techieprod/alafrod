@@ -1,0 +1,79 @@
+<div class="page-header">
+  
+    <div class="row">
+  
+      <div class="col-md-2 col-sm-4"  *ngFor="let posData of posList let itemIndex = index;" >
+        <div  class="card text-white bg-darkmagenta  bg-gradient-info bg-gradient mb-3" >
+        <div class="card-header" (click)="changePos(posData)">
+          <span class="text-white float-left"> {{posData.posName}}
+          </span>
+          </div>
+      </div>
+        <!-- <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <i class="fa fa-home"></i>   {{posData.posName}} -->
+<!-- <p>
+        <button type="button" (click)="changePos(posData)" class="btn btn-lg  btn-info bg-gradient-info btn btn-success btn-lg btn-lg-text">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+          <i class="fa fa-home"></i>   {{posData.posName}}
+        </button>
+        </p> -->
+        <!-- <div ngbDropdown class="d-inline-block">
+
+          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{posModel}}</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem *ngFor="let posData of posList let itemIndex = index;" (click)="changePos(posData)">{{posData.posName}}</button>
+            
+          </div>
+        </div> -->
+      </div>
+
+</div>
+
+
+
+  
+  <hr>
+</div>
+<div class="row">
+  
+  
+  <!-- /.col-sm-4 -->
+  <div class="col-md-2 col-sm-3" *ngFor="let tableData of tableList let itemIndex = index;" >
+      <div   (click)="goToPosSales(tableData)"   [ngClass]="tableData.tableStatus === 1 ? 'card text-white bg-occupied mb-3' : 'card text-white bg-vacant mb-3'" >
+          <div class="card-header">
+               <span class="text-white float-left"> <i class="fa fa-user"></i> {{tableData.pax}}
+               </span>
+               <span class="text-white float-right">
+               {{tableData.sitTime}} <i class="fa fa-clock-o"></i>
+                    </span>
+             </div>
+          <div class="card-body bg-content">
+             
+              <p class="card-text"><span class="text-white float-left"> {{tableData.tableNo}}
+              </span>
+              <span class="text-white float-right">
+         {{tableData.waiterName}}
+                   </span>
+                
+              </p>
+          </div>
+          <div class="card-footer text-white text-center">
+           {{tableData.totalAmount | currency:'INR'}}
+          </div>
+      </div>
+      
+  </div>
+  <!-- <div class="col-sm-4">
+      <div class="card text-white bg-danger mb-3">
+          <div class="card-header">Header</div>
+          <div class="card-body bg-success">
+              <h4 class="card-title">Danger card title</h4>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+          <div class="card-footer text-muted">
+            Last updated 3 mins ago
+          </div>
+      </div>
+  </div> -->
+ 
+</div>

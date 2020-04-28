@@ -1,0 +1,32 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+        <i class="fa fa-cutlery circle-icon"  aria-hidden="true"></i>
+            <!-- <img src="assets/images/logo.png" width="150px" class="user-avatar" /> -->
+            <h1 style="font-size: 2rem;
+            color: #ffffff; background: #800080;border-radius: 10rem;border: 2px solid #FFF;
+            font-weight: 600;">Restro POS</h1>
+            <form role="form">
+                <div class="form-content">
+                    <label for="inputStatus" style="float: left;font-size: 1.3rem;background: #800080;border-radius: 10rem;padding: 3px;
+                    color: #ffffff;
+                    font-weight: 600;">User Name</label>
+                    <div class="form-group">
+
+                        <input type="text" ng-model="name" class="form-control input-underline input-lg" id="" placeholder="{{ 'User Name' | translate }}">
+                    </div>
+                    <label for="inputStatus" style="float: left;font-size: 1.3rem;background:#800080;border-radius: 10rem;padding: 3px;
+                    color: #ffffff;
+                    font-weight: 600;">Password</label>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="{{ 'Password' | translate }}">
+                    </div>
+                </div>
+                <a class="btn rounded-btn" style="background: #800080; font-size: 1.3rem; font-weight: 900;" [routerLink]="['/posTable']" (click)="onLoggedin()">{{ 'Log in' | translate }}</a>
+                &nbsp;
+                <!-- <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Register' | translate }}</a> -->
+            </form>
+        </div>
+    </div>
+</div>

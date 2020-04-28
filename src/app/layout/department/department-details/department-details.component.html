@@ -1,0 +1,60 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Department List'" [icon]="'fa-circle-o'" [routerLinkName]="'/deparmentList'"></app-page-header>
+
+
+<div class="row">
+  <div class="col-sm-12">
+      <div class="card card-info">
+        
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form class="form-horizontal">
+            <div class="card-body">
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 control-label">Department Name <font color="red">*</font> :</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" required [(ngModel)]="deparmentData.departmentName" name="bookingData.departmentName" id="inputEmail3" >
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 control-label">In-charge :</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" [(ngModel)]="deparmentData.inCharge" name="bookingData.inCharge" id="inputPassword3" placeholder=" ">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                  <label for="inputPassword3" class="col-sm-2 control-label">Comments :</label>
+                  <div class="col-sm-6">
+                      <textarea name="comments" cols="39" rows="5" [(ngModel)]="deparmentData.comments" name="bookingData.comments" onkeydown="check_length(document.departmentManagementForm.comments,2000);" onkeypress="check_length(document.departmentManagementForm.comments,2000);" class="form-control"></textarea>
+                      <p><small>(Should not be more than 2000 characters)</small></p>
+                    </div>
+                 
+                </div>
+
+                <div class="label_style row">
+									
+                    <div  class="col-md-10 text-center">
+                        <button (click)="saveDeparmentEvent()" class="btn  btn-success btn-flat"><i class="fa fa-check"></i> Update</button>
+                        &nbsp;
+
+                        
+                        <button class="btn btn-secondary btn-flat"><i class="fa fa-chevron-left"></i> Back</button>
+                        
+                      
+                    </div>
+  
+                  </div>
+             
+            </div>
+            <!-- /.card-body -->
+           
+            <!-- /.card-footer -->
+          </form>
+        </div>
+
+      
+  </div>
+</div>
+
+</div>

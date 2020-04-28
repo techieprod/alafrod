@@ -1,0 +1,32 @@
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 ">
+    <div class="card card-info">
+      <div class="card-header" style="background:#c71585; color:white">
+        <h3 class="card-title">Day Close </h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+      <form class="form-horizontal">
+
+        <div class="card-body">
+
+          <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-4 control-label">Date</label>
+            <div class="col-sm-8">
+              <input id="inputDescription" readonly [(ngModel)]="billDate"  name="billDate"  class="form-control" />
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+          <button type="button"  class="btn-lg btn-success float-right">Day Close</button>
+          <button type="button" (click)="customModelService.closeDayCloseModel()" class="btn-lg btn-danger ">Close</button>
+        </div>
+        <!-- /.card-footer -->
+      </form>
+    </div>
+    </div>
+    </div>
+    </section>

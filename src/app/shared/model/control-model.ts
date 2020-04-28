@@ -1,0 +1,21 @@
+export class ControlModel {
+    constructor( public  code: string,
+        public  hotelName: string,
+        public  address: string,
+        public  address2: string,
+        public  phone: string,
+        public  lastClosedDate: string,
+        public  localStNo: string,
+        public  cstNo: string,
+        public  tngstNo: string,
+        public  printKot: string,
+        public  promptKotPrint: string,
+        public  promptBillPrint: string,
+        public  parallelprintKotBill: string,
+        public  greetings: string,
+        public  remoteKOT: string,
+        public  getSession: string,
+        public  restType: string,
+        public  homedelv: string,
+        public  partyHallName: string) { }
+}

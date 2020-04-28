@@ -1,0 +1,118 @@
+<section class="content"> 
+  <div class="loader" *ngIf="loading">
+    <span class="loadingImg"></span>
+</div>
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-custom-padding">
+    <label for="inputStatus">Outlet</label>
+    <select class="form-control custom-select" [(ngModel)]="posModel" (change)="changePos()">
+      <option  value="-1">--Select Outlet--</option>
+
+      <option value="{{posData.posCode}}"  *ngFor="let posData of posList let itemIndex = index;">{{posData.posName}}</option>
+    </select>
+  </div>
+  <div class="col-md-2 col-sm-3 col-custom-padding">
+
+  <label for="inputStatus">Table</label>
+  <select class="form-control custom-select" [(ngModel)]="tableModel" (change)="changeTable()" >
+    <option  value="-1">--Select Table--</option>
+
+    <option value="{{tableData.tableName}}"  *ngFor="let tableData of tableList let itemIndex = index;">{{tableData.tableName}}</option>
+  </select>
+  </div>
+  <div class="col-md-2 col-sm-3 col-custom-padding">
+  <label for="inputStatus">Waiter</label>
+  <select class="form-control custom-select" [(ngModel)]="waiterModel" (change)="changeWaiter()" >
+    <option  value="-1">--Select Waiter--</option>
+
+    <option value="{{tableData.waiterCode}}"  *ngFor="let tableData of waiterList let itemIndex = index;">{{tableData.waiterName}}</option>
+  </select>
+  </div>
+
+  <div class="col-md-2 col-sm-3 col-custom-padding">
+    <label for="inputStatus">Item</label>
+    <select class="form-control custom-select" [(ngModel)]="itemModel" (change)="changeItem()" >
+      <option  value="-1">--Select Item--</option>
+  
+      <option value="{{tableData.itemPckey}}"  *ngFor="let tableData of itemList let itemIndex = index;">{{tableData.itemName}}</option>
+    </select>
+    </div>
+ 
+</div>
+<div class="row">
+
+  <div class="col-md-10 col-sm-10">
+    <div class="card card-primary">
+      <div class="card-body pos-card-body">
+        <table class="table table-striped header-fixed posTable">
+          <thead style="background: #ffd700;color: #800000;">
+        <tr class="card-header">
+          <th colspan="2">Outlet</th>
+          <th colspan="2">Table</th>
+          <th colspan="2">Waiter</th>
+          <th colspan="2">Item Name</th>
+          <th>Qty</th>
+          <th >Remark</th>
+          <th>Action</th>
+        </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor="let kot of kotList  let itemIndex = index;"  [ngClass]="itemIndex%2 === 0 ? 'table-success' : 'table-danger' " class="table-success">
+              <td colspan="2">{{kot.posName}}</td>
+              <td colspan="2">{{kot.tableName}}</td>
+              <td colspan="2">{{kot.waiterName}}</td>
+            
+              <td class="posTable" colspan="2">{{kot.itemName}}</td>
+              <td>{{kot.quantity}}</td>
+              <td ><textarea id="inputDescription"  [(ngModel)]="kot.reason" [disabled]="kot.status ==='N' ? false :true" class="form-control" rows="1">{{kot.rate}}</textarea></td>
+
+              <td ><button type="button"  class="btn btn-sm btn-danger bg-gradient-danger">Ready</button></td>
+            </tr>
+
+           
+          </tbody>
+
+      </table>
+       
+        
+      </div>
+      <!-- /.card-body -->
+    </div>
+   
+    <!-- /.card -->
+  </div>
+
+  <div class="col-md-2 col-sm-2">
+
+    <div class="card card-primary">
+      <div class="card-body pos-card-body">
+        <table class="table table-striped header-fixed posTable">
+          <thead style="background: #d45656;color: #ffffff;">
+        <tr class="card-header">
+          
+          <th colspan="2">Item Name With Count</th>
+        
+        </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor="let kot of itemSideList  let itemIndex = index;"  [ngClass]="itemIndex%2 === 0 ? 'table-success' : 'table-danger' " class="table-success">
+              <td class="posTable" colspan="2">{{kot.itemName}} ({{kot.kotNo}})</td>
+            
+            </tr>
+
+           
+          </tbody>
+
+      </table>
+       
+        
+      </div>
+      <!-- /.card-body -->
+    </div>
+
+
+  </div>
+
+  
+    </div>
+  </section>  

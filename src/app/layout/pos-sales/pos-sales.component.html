@@ -1,0 +1,412 @@
+
+  <!-- Main content -->
+  <section class="content">
+
+    <div class="loader" *ngIf="loading">
+      <span class="loadingImg"></span>
+  </div>
+
+  <div  [ngClass]="discountBillPopupMode ? 'modal  popup-on': 'modal fade' " id="modal-sm">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content modal-content-custom" >
+        <div class="modal-header modal-header-custom">  
+          <h4 class="modal-title">Discount Bill</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeDisModel()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row" >
+            <div class="col-md-10 col-sm-10 ">
+              <label for="inputStatus"></label>
+              <select class="form-control custom-select" style="margin-top: 2px;" [(ngModel)]="discountTypeModel"  >
+        
+                <option value="{{discountType.id}}"  *ngFor="let discountType of discountTypeList let itemIndex = index;">{{discountType.value}}</option>
+              </select>
+          </div>  
+        
+          </div>
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-4 col-sm-4 ">
+          <label>Discount</label>
+          
+          </div>
+          <div class="col-md-6 col-sm-6 ">
+            <input id="typeahead-prevent-manual-entry" inputmode="numeric" [(ngModel)]="discountModel"
+            pattern="[0-9]*"
+            digitOnly type="text" class="form-control small" >
+          </div>
+          </div>
+
+
+         
+         
+        </div>
+        <div class="modal-footer modal-footer-custom justify-content-between">
+          <button type="button" class="btn-lg btn-danger " data-dismiss="modal" (click)="closeDisModel()">Close</button>
+          <button type="button"class="btn-lg btn-success float-right" (click)="discountBill()">Bill</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+    <div class="row">
+
+      
+     
+      <div class="col-md-2 col-sm-3 col-custom-padding">
+        <label for="inputStatus">Outlet</label>
+        <select class="form-control custom-select" [(ngModel)]="posModel" (change)="changePos()">
+          <option  value="-1">--Select Outlet--</option>
+
+          <option value="{{posData.posCode}}"  *ngFor="let posData of posList let itemIndex = index;">{{posData.posName}}</option>
+        </select>
+      </div>
+      <div class="col-md-2 col-sm-3 col-custom-padding">
+
+      <label for="inputStatus">Table</label>
+      <select class="form-control custom-select" [(ngModel)]="tableModel" (change)="changeTable()" [disabled]="isTable">
+        <option  value="-1">--Select Table--</option>
+
+        <option value="{{tableData.unqNo}}"  *ngFor="let tableData of tableList let itemIndex = index;">{{tableData.tableNo}}</option>
+      </select>
+      </div>
+      <div class="col-md-2 col-sm-3 col-custom-padding">
+      <label for="inputStatus">Waiter</label>
+      <select class="form-control custom-select" [(ngModel)]="waiterModel" (change)="changeWaiter()" [disabled]="isWaiter">
+        <option  value="-1">--Select Waiter--</option>
+
+        <option value="{{tableData.waiterNo}}"  *ngFor="let tableData of waiterFinalList let itemIndex = index;">{{tableData.waiterName}}</option>
+      </select>
+      </div>
+     
+    </div>
+    <div class="row">
+
+     
+      <div class="col-md-2 col-sm-2 col-custom-padding">
+      <label>Item Code</label>
+      <input id="typeahead-prevent-manual-entry"  type="text" class="form-control" maxlength="5" [disabled]="isTable"
+      inputmode="numeric"
+      pattern="[0-9]*"
+      #itemCodeView
+      digitOnly (keydown)="onKeydown($event)"
+      (keyup)="onKeydown($event)"
+      [(ngModel)]="itemCodeModel"
+      [ngbTypeahead]="itemCodeSearch"
+      [inputFormatter]="itemCodeformatterDisplay"
+      [resultFormatter]="formatter"
+      (selectItem)="itemCodeSelected($event)"
+      [editable]='false' />
+</div>
+<div class="col-md-3 col-sm-5 col-custom-padding">
+  <label>Item Name</label>
+  <input id="typeahead-prevent-manual-entry"  type="text" class="form-control" [disabled]="isTable"
+  [(ngModel)]="itemNameModel"
+  [ngbTypeahead]="itemNameSearch"
+  [inputFormatter]="itemNameformatter"
+  [resultFormatter]="formatter"
+  (selectItem)="itemNameSelected($event)"
+  (keydown.Tab)="onTabEvent($event)"
+  [editable]='false' />
+</div>
+<div class="col-md-2 col-sm-2 col-custom-padding">
+<label>Rate</label>
+                  <input id="typeahead-prevent-manual-entry" [readonly]="true" [value]="rateModel" [(ngModel)]="rateModel" type="text"   class="form-control small" >
+                  </div>
+
+                  <div class="col-md-1 col-sm-1 col-custom-padding">
+                    <label>Qty</label>
+                    <input id="typeahead-prevent-manual-entry"  [disabled]="isQty" [(ngModel)]="qtyModel"  digitOnly  #qtyView type="text" (keyup.enter)="onEnterEvent()" class="form-control" >
+                  </div>
+                  <div class="col-md-1 col-sm-1 col-custom-padding">
+                    <div class="btn-toolbar  btn-group-vertical text-center" style="justify-content: center; display: flex;"  role="toolbar">
+        
+                      <div class="btn-group mr-4" role="group" aria-label="First group">
+                        <button type="button" [disabled]="isDown" (click)="addNewItem()" class="btn  btn-app bg-brown bg-gradient-info   btn-xs">
+                          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                          <span class="total"> Down</span> 
+                           
+                        </button>
+                        
+                        </div>
+                        </div>
+                  </div>
+
+    </div>
+
+      <div class="row">
+
+      <div class="col-md-10 col-sm-10">
+        <div class="card card-primary">
+          
+          <!-- <div class="card-header">
+            <div class="btn-toolbar text-center" style="justify-content: center; display: flex;"  role="toolbar">
+              <div class="btn-group mr-4" role="group" aria-label="First group">
+              <button type="button" class="btn btn-lg  btn-info bg-gradient-info btn btn-success btn-lg btn-lg-text">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <i class="fa fa-home"></i>   KOT
+              </button>
+              </div>
+              <div class="btn-group mr-4" role="group" aria-label="First group">
+              <button type="button" class="btn btn-lg  btn-info bg-gradient-info btn btn-success btn-lg btn-lg-text">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <i class="fa fa-home"></i>   Discount Bill
+              </button>
+              </div>
+              <div class="btn-group mr-4" role="group" aria-label="First group">
+              <button type="button" class="btn btn-default btn-primary-spacing btn-lg btn-lg-text">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <i class="fa fa-home"></i>   Large
+              </button>
+              </div>
+              <div class="btn-group mr-4" role="group" aria-label="First group">
+              <button type="button" class="btn btn-default btn-primary-spacing btn-lg btn-lg-text">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <i class="fa fa-home"></i>  Large
+              </button>
+             </div>
+            </div>
+          </div> -->
+          <div class="card-body pos-card-body">
+            <table class="table table-striped header-fixed posTable">
+              <thead style="background: #ffd700;color: #800000;">
+            <tr class="card-header">
+              <th colspan="2">Item Name</th>
+              <th>Qty</th>
+              <th>Rate</th>
+              <th >Remark</th>
+              <th>SubTotal</th>
+              <th>Action</th>
+            </tr>
+              </thead>
+              <tbody >
+                <tr *ngFor="let kot of kotList  let itemIndex = index;"  [ngClass]="itemIndex%2 === 0 ? 'table-success' : 'table-danger' " class="table-success">
+                  <td class="posTable" colspan="2">{{kot.itemName}}</td>
+                  <td>{{kot.quantity}}</td>
+                  <td>{{kot.rate}}</td>
+                  <td ><textarea id="inputDescription"  [(ngModel)]="kot.reason" [disabled]="kot.status ==='N' ? false :true" class="form-control" rows="1">{{kot.rate}}</textarea></td>
+                  <td>{{subTotal(kot.rate,kot.quantity)}}</td>
+                  <td *ngIf="kot.status !='N'"></td>
+                  <td *ngIf="kot.status ==='N'"><button type="button" (click)="deleteItem(kot,itemIndex)" class="btn btn-sm btn-danger bg-gradient-danger">Delete</button></td>
+                </tr>
+
+               
+              </tbody>
+
+              <!-- <tfoot class="card-header">
+                <tr>
+                  <td colspan="2"></td>
+                  <td > <label>Item Name</label> <label>Item Name</label> </td>
+                  <td>Total Rate :: 107686</td>
+                  <td class="bg-gradient-danger">Total GST :: 300</td>
+                  <td>Total  :: 1056757</td>
+                </tr>
+              </tfoot> -->
+          </table>
+           
+            
+          </div>
+          <!-- /.card-body -->
+          <!-- <div class="card-footer text-muted">
+           
+              <div class="btn-toolbar text-center"  style="justify-content: right; display: flex;" role="toolbar">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-lg  btn-info bg-gradient-info btn btn-success btn-lg btn-lg-text">
+                  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  <i class="fa fa-home"></i>   Tot Qty : 12
+                </button>
+                </div>
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-lg  btn-info bg-gradient-info btn btn-success btn-lg btn-lg-text">
+                  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  <i class="fa fa-home"></i>  Tot Rate : 12087
+                </button>
+                </div>
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-default btn-primary-spacing btn-lg btn-lg-text">
+                  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  <i class="fa fa-home"></i>   Tot GST : 5600
+                </button>
+                </div>
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-default btn-primary-spacing btn-lg btn-lg-text">
+                  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  <i class="fa fa-home"></i>  Total :153078
+                </button>
+               </div>
+              </div>
+            </div> -->
+        </div>
+       
+        <!-- /.card -->
+      </div>
+
+      <div class="col-md-2 col-sm-2">
+
+
+
+
+         <!-- Info Boxes Style 2
+         <div class="info-box mb-3 bg-warning">
+          <span class="info-box-icon"><i class="fa fa-tag"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Inventory</span>
+            <span class="info-box-number">5,200</span>
+          </div>
+      
+        </div>
+        
+        <div class="info-box mb-3 bg-success">
+          <span class="info-box-icon"><i class="far fa-heart"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Mentions</span>
+            <span class="info-box-number">92,050</span>
+          </div>
+         
+        </div>
+        
+        <div class="info-box mb-3 bg-danger">
+          <span class="info-box-icon"><i class="fas fa-cloud-download-alt"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Downloads</span>
+            <span class="info-box-number">114,381</span>
+          </div>
+         
+        </div>
+       
+        <div class="info-box mb-3 bg-info">
+          <span class="info-box-icon"><i class="far fa-comment"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Direct Messages</span>
+            <span class="info-box-number">163,921</span>
+          </div>
+        </div> -->
+        <div class="btn-toolbar  btn-group-vertical text-center" style="justify-content: center; display: flex;"  role="toolbar">
+        
+          <div class="btn-group mr-4" role="group" aria-label="First group">
+            <button type="button" (click)="saveKot()" [disabled]="isKotBtn" class="btn  btn-app bg-coral bg-gradient-info btn-xs">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              <span class="total"> KOT</span> 
+               
+            </button>
+            
+            </div>
+
+            <div class="btn-group mr-4" role="group" aria-label="First group">
+              <button type="button" [disabled]="isBillBtn" (click)="saveBill()" class="btn  btn-app bg-gradient-info btn btn-success  btn-xs">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <span class="total"> Bill</span> 
+                 
+              </button>
+              
+              </div>
+
+              
+              <div class="btn-group mr-4" role="group" aria-label="First group">
+                <button type="button" (click)="discountBillPopup()" [disabled]="isDiscountBill" class="btn  btn-app bg-posColor bg-gradient-info   btn-xs">
+                  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                 <span class="total"> Disc Bill</span> 
+                   
+                </button>
+                
+                </div>
+    
+            <div class="btn-group mr-4" role="group" aria-label="First group">
+              <button type="button" class="btn  btn-app bg-totalColor bg-gradient-info   btn-xs">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <i class="total">TOT QTY</i>   {{totalQty}}
+              </button>
+              
+              </div>
+
+              <div class="btn-group mr-4" role="group" aria-label="First group">
+                <button type="button" class="btn  btn-app bg-totalColor bg-gradient-info  btn-xs">
+                  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  <i class="total">TOT Rate</i>    {{totalRate | currency:'INR'}}
+                </button>
+                
+                </div>
+                <div class="btn-group mr-4" role="group" aria-label="First group">
+                  <button type="button" class="btn  btn-app bg-totalColor bg-gradient-info  btn-xs">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <i class="total">TOT GST</i>    {{totalGst | currency:'INR'}}
+                  </button>
+                  
+                  </div>
+
+                  <div class="btn-group mr-4" role="group" aria-label="First group">
+                    <button type="button" class="btn  btn-app bg-totalColor bg-gradient-info  btn-xs">
+                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      <i class="total">Net Total</i>    {{netAmount | currency:'INR'}}
+                    </button>
+                    
+                    </div>
+
+                <!-- <div class="btn-group mr-4" role="group" aria-label="First group">
+                  <button type="button" class="btn  btn-app btn-info bg-gradient-info btn btn-success  btn-xs">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <i class="total">QTY</i>   1200
+                  </button>
+                  
+                  </div> -->
+
+                  <!-- <div class="btn-group mr-4" role="group" aria-label="First group">
+                    <button type="button" class="btn  btn-app btn-info bg-gradient-info btn btn-success  btn-xs">
+                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      <i class="total">QTY</i>   1200
+                    </button>
+                    
+                    </div>
+         -->
+          <!-- <div class="btn-group mr-1" role="group" aria-label="First group">
+          <button type="button" class="btn btn-app btn-info bg-gradient-info btn btn-success  btn-xs">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            <i class="fa fa-home"></i>   Bill Discount
+          </button>
+          </div> -->
+          <!-- <div class="btn-group mr-4" role="group" aria-label="First group">
+          <button type="button" class="btn  btn-app btn-default btn-primary-spacing btn-lg btn-lg-text">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            <i class="fa fa-home"></i>  Large
+          </button>
+         </div> -->
+        </div>
+    
+      </div>
+
+      <!-- <div class="col-md-2 col-sm-2">
+        <div class="card card-secondary">
+          
+          <div class="card-body">
+            <div class="col-md-2 col-sm-2">
+             
+            </div>
+            <div class="form-group">
+              <label for="inputSpentBudget"> <button type="button" class="btn  btn-info bg-gradient-info btn btn-success">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <i class="fa fa-home"></i>   Tot Qty : 12
+              </button></label>
+              <input type="number" id="inputSpentBudget" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="inputEstimatedDuration">Estimated project duration</label>
+              <input type="number" id="inputEstimatedDuration" class="form-control">
+            </div>
+          </div>
+          <!-- /.card-body -->
+        <!-- </div> -->
+        <!-- /.card -->
+      <!-- </div> -->
+      
+        </div>
+    
+   
+  </section>
+
